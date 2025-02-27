@@ -2,6 +2,7 @@ package com.jetcheverry.interbanking.application.service;
 
 import com.jetcheverry.interbanking.domain.model.Company;
 import com.jetcheverry.interbanking.domain.port.out.CompanyRepositoryPort;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,9 +23,12 @@ public class CompanyServiceTest {
     @Mock
     private CompanyRepositoryPort companyRepositoryPort;
 
-    @InjectMocks
     private CompanyService companyService;
 
+    @BeforeEach
+    void setUp() {
+        companyService = new CompanyService(companyRepositoryPort); // 🔹 Creamos la instancia manualmente
+    }
 
     @Test
     void shouldReturnCompaniesJoinedLastMonth() {
