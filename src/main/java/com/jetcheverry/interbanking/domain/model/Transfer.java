@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Transfer {
 
     private Long id;
-    private String companyId;
+    private String companyTaxId;
     private BigDecimal amount;
     private String debitAccount;
     private String creditAccount;
@@ -17,9 +17,9 @@ public class Transfer {
     public Transfer() {
     }
 
-    public Transfer(Long id, String companyId, BigDecimal amount, String debitAccount, String creditAccount, LocalDateTime transferDate) {
+    public Transfer(Long id, String companyTaxId, BigDecimal amount, String debitAccount, String creditAccount, LocalDateTime transferDate) {
         this.id = id;
-        this.companyId = companyId;
+        this.companyTaxId = companyTaxId;
         this.amount = amount;
         this.debitAccount = debitAccount;
         this.creditAccount = creditAccount;
@@ -30,8 +30,8 @@ public class Transfer {
         return id;
     }
 
-    public String getCompanyId() {
-        return companyId;
+    public String getCompanyTaxId() {
+        return companyTaxId;
     }
 
     public BigDecimal getAmount() {
@@ -54,8 +54,8 @@ public class Transfer {
         this.id = id;
     }
 
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
+    public void setCompanyId(String companyTaxId) {
+        this.companyTaxId = companyTaxId;
     }
 
     public void setAmount(BigDecimal amount) {
