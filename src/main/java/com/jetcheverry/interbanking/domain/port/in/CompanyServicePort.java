@@ -10,5 +10,4 @@ public interface CompanyServicePort {
 
     Company registerCompany(Company company);
 
-
 }
