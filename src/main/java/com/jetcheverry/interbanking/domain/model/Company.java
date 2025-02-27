@@ -1,6 +1,5 @@
 package com.jetcheverry.interbanking.domain.model;
 
-import lombok.*;
 
 import java.time.LocalDate;
 
@@ -8,6 +7,8 @@ import java.time.LocalDate;
 
 public class Company {
 
+
+    private Long id;
     private String taxId;
     private String businessName;
     private LocalDate joinDate;
@@ -15,10 +16,19 @@ public class Company {
     public Company() {
     }
 
-    public Company(String taxId, String businessName, LocalDate joinDate) {
+    public Company(Long id, String taxId, String businessName, LocalDate joinDate) {
+        this.id = id;
         this.businessName = businessName;
         this.joinDate = joinDate;
         this.taxId = taxId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTaxId() {

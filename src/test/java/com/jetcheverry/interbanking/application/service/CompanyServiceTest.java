@@ -30,8 +30,8 @@ public class CompanyServiceTest {
     void shouldReturnCompaniesJoinedLastMonth() {
         LocalDate lastMonth = LocalDate.now().minusMonths(1);
         List<Company> expectedCompanies = Arrays.asList(
-                new Company(  "TAXIDA", "Company A", lastMonth),
-                new Company("TAXIDB",  "Company B", lastMonth )
+                new Company( 1L,"TAXIDA", "Company A", lastMonth),
+                new Company(2L, "TAXIDB",  "Company B", lastMonth )
         );
 
         when(companyRepositoryPort.findCompaniesJoinedLastMonth(lastMonth)).thenReturn(expectedCompanies);
@@ -61,14 +61,15 @@ public class CompanyServiceTest {
     void shouldRegisterCompanySuccessfully() {
         LocalDate lastMonth = LocalDate.now().minusMonths(1);
 
-        Company company = new Company(  "TAXIDA", "Company A", null);
-        Company savedCompany = new Company(  "TAXIDA", "Company A", lastMonth);
+        Company company = new Company(null,  "TAXIDA", "Company A", null);
+        Company savedCompany = new Company(1L,  "TAXIDA", "Company A", lastMonth);
 
         when(companyRepositoryPort.save(any(Company.class))).thenReturn(savedCompany);
 
         Company result = companyService.registerCompany(company);
 
         assertNotNull(result);
+        assertEquals(1L, result.getId());
         assertEquals(lastMonth, result.getJoinDate());
         verify(companyRepositoryPort, times(1)).save(any(Company.class));
     }
