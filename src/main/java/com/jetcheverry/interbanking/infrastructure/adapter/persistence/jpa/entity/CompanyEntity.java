@@ -13,7 +13,7 @@ public class CompanyEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column( name = "tax_id", unique = true, nullable = false)
     private String taxId;
 
     @NotBlank
