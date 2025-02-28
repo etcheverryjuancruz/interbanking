@@ -23,7 +23,9 @@ public class CompanyService implements CompanyServicePort {
 
     @Override
     public Company registerCompany(Company company) {
-        company.setJoinDate(LocalDate.now());
+        if (company.getJoinDate() == null) {
+            company.setJoinDate(LocalDate.now());
+        }
         return companyRepository.save(company);
     }
 
