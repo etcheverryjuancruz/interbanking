@@ -3,7 +3,9 @@ package com.jetcheverry.interbanking.infrastructure.api.mapper;
 import com.jetcheverry.interbanking.domain.model.Transfer;
 import com.jetcheverry.interbanking.infrastructure.api.dto.TransferRequestDto;
 import com.jetcheverry.interbanking.infrastructure.api.dto.TransferResponseDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TransferDTOMapper {
 
     public Transfer toDomain(TransferRequestDto dto) {
@@ -17,7 +19,7 @@ public class TransferDTOMapper {
                 dto.getAmount(),
                 dto.getDebitAccount(),
                 dto.getCreditAccount(),
-                dto.getTranferDate()
+                dto.getTransferDate()
         );
     }
 

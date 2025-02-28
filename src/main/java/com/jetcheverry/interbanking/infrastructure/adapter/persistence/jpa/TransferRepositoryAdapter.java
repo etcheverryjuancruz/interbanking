@@ -10,12 +10,15 @@ import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.mappe
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.repository.CompanyJpaRepository;
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.repository.TransferJpaRepository;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+@Repository
 public class TransferRepositoryAdapter implements TransferRepositoryPort {
 
     private final TransferJpaRepository transferJpaRepository;

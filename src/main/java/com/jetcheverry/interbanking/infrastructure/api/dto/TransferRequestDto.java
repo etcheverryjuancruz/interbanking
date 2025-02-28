@@ -22,7 +22,7 @@ public class TransferRequestDto {
     @Positive
     private BigDecimal amount;
 
-    private LocalDateTime tranferDate;
+    private LocalDateTime transferDate;
 
     public TransferRequestDto() {
     }
@@ -32,7 +32,7 @@ public class TransferRequestDto {
         this.debitAccount = debitAccount;
         this.creditAccount = creditAccount;
         this.amount = amount;
-        this.tranferDate = tranferDate;
+        this.transferDate = tranferDate;
     }
 
     public String getCompanyTaxId() {
@@ -67,11 +67,11 @@ public class TransferRequestDto {
         this.amount = amount;
     }
 
-    public LocalDateTime getTranferDate() {
-        return tranferDate;
+    public LocalDateTime getTransferDate() {
+        return transferDate;
     }
 
-    public void setTranferDate(LocalDateTime tranferDate) {
-        this.tranferDate = tranferDate;
+    public void setTransferDate(LocalDateTime transferDate) {
+        this.transferDate = transferDate;
     }
 }
