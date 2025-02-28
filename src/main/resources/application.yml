@@ -11,3 +11,16 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  springdoc:
+    enable: true
+    api-docs:
+      enabled: true
+      path: /api-docs
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
+      operations-sorter: method
+      tags-sorter: alpha
+      disable-swagger-default-url: true
+    enable-native-support: true
