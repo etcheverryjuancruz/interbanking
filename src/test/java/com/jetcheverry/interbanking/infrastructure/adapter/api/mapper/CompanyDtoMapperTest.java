@@ -22,7 +22,7 @@ public class CompanyDtoMapperTest {
 
     @Test
     void shouldConvertRequestDtoToDomainCorrectly() {
-        CompanyRequestDto requestDto = new CompanyRequestDto("TAXIDA", "Company A");
+        CompanyRequestDto requestDto = new CompanyRequestDto("TAXIDA", "Company A", null);
 
         Company result = companyDtoMapper.toDomain(requestDto);
 

@@ -27,7 +27,7 @@ public class CompanyServiceTest {
 
     @BeforeEach
     void setUp() {
-        companyService = new CompanyService(companyRepositoryPort); // 🔹 Creamos la instancia manualmente
+        companyService = new CompanyService(companyRepositoryPort);
     }
 
     @Test
@@ -75,6 +75,22 @@ public class CompanyServiceTest {
         assertNotNull(result);
         assertEquals(1L, result.getId());
         assertEquals(lastMonth, result.getJoinDate());
+        verify(companyRepositoryPort, times(1)).save(any(Company.class));
+    }
+
+    @Test
+    void shouldRegisterCompanyWithExplicitJoinDate() {
+        LocalDate joinDate = LocalDate.of(2024, 1, 15);
+        Company company = new Company(null, "TAXIDX", "Company X", joinDate);
+        Company savedCompany = new Company(2L, "TAXIDX", "Company X", joinDate);
+
+        when(companyRepositoryPort.save(any(Company.class))).thenReturn(savedCompany);
+
+        Company result = companyService.registerCompany(company);
+
+        assertNotNull(result);
+        assertEquals(2L, result.getId());
+        assertEquals(joinDate, result.getJoinDate());
         verify(companyRepositoryPort, times(1)).save(any(Company.class));
     }
 }

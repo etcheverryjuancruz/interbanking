@@ -38,7 +38,7 @@ public class CompanyEntityMapperTest {
         Company result = companyMapper.toDomain(companyEntity);
 
         assertNotNull(result);
-        assertNull(result.getId()); // ❗ `CompanyEntity` no tiene `id`, así que en `Company` debería ser `null`
+        assertNull(result.getId());
         assertEquals(companyEntity.getTaxId(), result.getTaxId());
         assertEquals(companyEntity.getBusinessName(), result.getBusinessName());
         assertEquals(companyEntity.getJoinDate(), result.getJoinDate());
