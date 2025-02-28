@@ -2,7 +2,7 @@ package com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa;
 
 import com.jetcheverry.interbanking.domain.model.Company;
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.entity.CompanyEntity;
-import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.mapper.CompanyMapperEntity;
+import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.mapper.CompanyEntityMapper;
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.repository.CompanyJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class CompanyRepositoryAdapterTest {
     private CompanyJpaRepository companyJpaRepository;
 
     @Mock
-    private CompanyMapperEntity companyMapperEntity;
+    private CompanyEntityMapper companyEntityMapper;
 
     @InjectMocks
     private CompanyRepositoryAdapter companyRepositoryAdapter;
@@ -43,9 +43,9 @@ public class CompanyRepositoryAdapterTest {
 
     @Test
     void shouldSaveCompanySuccessfully() {
-        when(companyMapperEntity.toEntity(company)).thenReturn(companyEntity);
+        when(companyEntityMapper.toEntity(company)).thenReturn(companyEntity);
         when(companyJpaRepository.save(companyEntity)).thenReturn(companyEntity);
-        when(companyMapperEntity.toDomain(companyEntity)).thenReturn(company);
+        when(companyEntityMapper.toDomain(companyEntity)).thenReturn(company);
 
         Company result = companyRepositoryAdapter.save(company);
 
@@ -62,7 +62,7 @@ public class CompanyRepositoryAdapterTest {
         List<Company> expectedCompanies = List.of(company);
 
         when(companyJpaRepository.findByJoinDateAfter(lastMonth)).thenReturn(companyEntities);
-        when(companyMapperEntity.toDomain(companyEntity)).thenReturn(company);
+        when(companyEntityMapper.toDomain(companyEntity)).thenReturn(company);
 
         List<Company> result = companyRepositoryAdapter.findCompaniesJoinedLastMonth(lastMonth);
 

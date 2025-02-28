@@ -3,7 +3,7 @@ package com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa;
 import com.jetcheverry.interbanking.domain.model.Company;
 import com.jetcheverry.interbanking.domain.port.out.CompanyRepositoryPort;
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.entity.CompanyEntity;
-import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.mapper.CompanyMapperEntity;
+import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.mapper.CompanyEntityMapper;
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.repository.CompanyJpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,25 +15,25 @@ import java.util.stream.Collectors;
 public class CompanyRepositoryAdapter  implements CompanyRepositoryPort {
 
     private final CompanyJpaRepository companyJpaRepository;
-    private final CompanyMapperEntity companyMapperEntity;
+    private final CompanyEntityMapper companyEntityMapper;
 
 
-    public CompanyRepositoryAdapter(CompanyJpaRepository companyJpaRepository, CompanyMapperEntity companyMapperEntity) {
+    public CompanyRepositoryAdapter(CompanyJpaRepository companyJpaRepository, CompanyEntityMapper companyEntityMapper) {
         this.companyJpaRepository = companyJpaRepository;
-        this.companyMapperEntity = companyMapperEntity;
+        this.companyEntityMapper = companyEntityMapper;
     }
     @Override
     public List<Company> findCompaniesJoinedLastMonth(LocalDate date) {
         return companyJpaRepository.findByJoinDateAfter(date)
                 .stream()
-                .map(companyMapperEntity::toDomain)
+                .map(companyEntityMapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Company save(Company company) {
-        CompanyEntity entity = companyMapperEntity.toEntity(company);
+        CompanyEntity entity = companyEntityMapper.toEntity(company);
         CompanyEntity savedEntity = companyJpaRepository.save(entity);
-        return companyMapperEntity.toDomain(savedEntity);
+        return companyEntityMapper.toDomain(savedEntity);
     }
 }

@@ -9,15 +9,15 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CompanyMapperEntityTest {
+public class CompanyEntityMapperTest {
 
-    private CompanyMapperEntity companyMapper;
+    private CompanyEntityMapper companyMapper;
     private Company company;
     private CompanyEntity companyEntity;
 
     @BeforeEach
     void setUp() {
-        companyMapper = new CompanyMapperEntity();
+        companyMapper = new CompanyEntityMapper();
 
         company = new Company(1L, "TAXIDA", "Company A", LocalDate.of(2024, 2, 1));
         companyEntity = new CompanyEntity("TAXIDA", "Company A", LocalDate.of(2024, 2, 1));

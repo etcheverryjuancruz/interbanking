@@ -5,30 +5,20 @@ import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.entit
 import org.springframework.stereotype.Component;
 
 @Component
-public class CompanyMapperEntity {
+public class CompanyEntityMapper {
 
     public CompanyEntity toEntity(Company company) {
         if(company == null) {
             return null;
         }
 
-        CompanyEntity entity = new CompanyEntity(
-                company.getTaxId(),
-                company.getBusinessName(),
-                company.getJoinDate()
-        );
-        return entity;
+        return new CompanyEntity(company.getTaxId(), company.getBusinessName(), company.getJoinDate());
     }
 
     public Company toDomain(CompanyEntity entity) {
         if(entity == null) {
             return null;
         }
-        return new Company(
-                entity.getId(),
-                entity.getTaxId(),
-                entity.getBusinessName(),
-                entity.getJoinDate()
-        );
+        return new Company(entity.getId(), entity.getTaxId(), entity.getBusinessName(), entity.getJoinDate());
     }
 }
