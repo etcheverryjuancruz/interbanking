@@ -7,10 +7,10 @@ import java.time.LocalDate;
 
 public class CompanyRequestDto {
 
-    @NotBlank
+    @NotBlank(message = "El taxId es obligatorio")
     private String taxId;
 
-    @NotBlank
+    @NotBlank(message = "El nombre de la empresa es obligatorio")
     private String businessName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

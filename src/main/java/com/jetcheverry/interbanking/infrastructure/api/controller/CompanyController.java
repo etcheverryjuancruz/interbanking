@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,7 +80,7 @@ public class CompanyController {
     @GetMapping
     public ResponseEntity<List<CompanyResponseDto>> getCompanies(
             @Parameter(description = "Tipo de filtro para obtener empresas", example = "JOINED_LAST_MONTH")
-            @RequestParam("filter") CompanyFilterType filterType) {
+            @RequestParam("filter") @NotNull(message = "El filtro es obligatorio") CompanyFilterType filterType) {
 
         List<Company> companies = filterHandlers.getOrDefault(filterType, Collections::emptyList).get();
         List<CompanyResponseDto> response = companies.stream()
