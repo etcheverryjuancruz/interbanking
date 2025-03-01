@@ -1,4 +1,17 @@
 services:
+  interbanking-app:
+    image: jetcheverry193/interbanking:latest
+    container_name: interbanking-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://interbanking-db:5432/interbanking
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
   postgres:
     image: postgres:15
     container_name: interbanking-db
@@ -9,3 +22,8 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
