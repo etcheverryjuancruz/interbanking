@@ -9,17 +9,17 @@ import java.time.LocalDateTime;
 
 public class TransferRequestDto {
 
-    @NotBlank
+    @NotBlank(message = "El Tax ID de la empresa no puede estar vacío")
     private String companyTaxId;
 
-    @NotBlank
+    @NotBlank(message = "La cuenta de debito no puede estar vacía")
     private String debitAccount;
 
-    @NotBlank
+    @NotBlank(message = "La cuenta de crédito no puede estar vacía")
     private String creditAccount;
 
-    @NotNull
-    @Positive
+    @NotNull(message = "El monto de la transferencia no puede ser nulo")
+    @Positive(message = "El monto de la transferencia debe ser mayor que 0")
     private BigDecimal amount;
 
     private LocalDateTime transferDate;

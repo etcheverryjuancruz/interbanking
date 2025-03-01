@@ -1,5 +1,6 @@
 package com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa;
 
+import com.jetcheverry.interbanking.domain.exception.CompanyNotFoundException;
 import com.jetcheverry.interbanking.domain.model.Company;
 import com.jetcheverry.interbanking.domain.model.Transfer;
 import com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa.entity.CompanyEntity;
@@ -98,10 +99,10 @@ public class TransferRepositoryAdapterTest {
         when(companyJpaRepository.findByTaxId(anyString())).thenReturn(Optional.empty());
 
         // ✅ Ejecutamos el método y validamos la excepción
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> transferRepositoryAdapter.save(transfer));
+        Exception exception = assertThrows(CompanyNotFoundException.class, () -> transferRepositoryAdapter.save(transfer));
 
         // ✅ Verificamos que la excepción tiene el mensaje esperado
-        assertEquals("Company with Tax ID TAXIDA not found.", exception.getMessage());
+        assertEquals("Company with id TAXIDA not found", exception.getMessage());
 
         // ✅ Verificamos que NO se haya intentado guardar la transferencia
         verify(transferJpaRepository, never()).save(any(TransferEntity.class));

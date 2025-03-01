@@ -1,5 +1,6 @@
 package com.jetcheverry.interbanking.infrastructure.adapter.persistence.jpa;
 
+import com.jetcheverry.interbanking.domain.exception.CompanyNotFoundException;
 import com.jetcheverry.interbanking.domain.model.Company;
 import com.jetcheverry.interbanking.domain.model.Transfer;
 import com.jetcheverry.interbanking.domain.port.out.TransferRepositoryPort;
@@ -42,7 +43,7 @@ public class TransferRepositoryAdapter implements TransferRepositoryPort {
         Optional<CompanyEntity> companyEntityOpt = companyJpaRepository.findByTaxId(transfer.getCompanyTaxId());
 
         if (companyEntityOpt.isEmpty()) {
-            throw new IllegalArgumentException("Company with Tax ID " + transfer.getCompanyTaxId() + " not found.");
+            throw new CompanyNotFoundException(transfer.getCompanyTaxId());
         }
 
         CompanyEntity companyEntity = companyEntityOpt.get();
