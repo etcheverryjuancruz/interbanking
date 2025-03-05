@@ -12,4 +12,6 @@ public interface CompanyJpaRepository extends JpaRepository<CompanyEntity, Long>
     List<CompanyEntity> findByJoinDateAfter(LocalDate date);
 
     Optional<CompanyEntity> findByTaxId(String taxId);
+
+    boolean existsByTaxId(String taxId);
 }

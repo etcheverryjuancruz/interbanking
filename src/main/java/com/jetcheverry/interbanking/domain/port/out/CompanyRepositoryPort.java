@@ -10,4 +10,7 @@ public interface CompanyRepositoryPort {
     List<Company> findCompaniesJoinedLastMonth(LocalDate date);
 
     Company save(Company company);
+
+    boolean existsByTaxId(String taxId);
+
 }

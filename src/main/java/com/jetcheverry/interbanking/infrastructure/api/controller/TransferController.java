@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transfers")
 @Tag(name = "Transfer Controller", description = "Endpoints para gestionar transferencias")
 public class TransferController {
+
+    private  final Logger logger = LoggerFactory.getLogger(TransferController.class);
 
     private final TransferServicePort transferService;
     private final TransferDTOMapper transferDtoMapper;
@@ -45,6 +49,8 @@ public class TransferController {
     })
     @PostMapping
     public ResponseEntity<TransferResponseDto> registerTransfer(@Valid @RequestBody TransferRequestDto requestDto) {
+        logger.info("Registrar una transferencia de {},  el {},  de importe: {} ", requestDto.getCompanyTaxId(), requestDto.getAmount(), requestDto.getTransferDate());
+
         Transfer transfer = transferDtoMapper.toDomain(requestDto);
         Transfer savedTransfer = transferService.registerTransfer(transfer);
         return ResponseEntity.status(HttpStatus.CREATED).body(transferDtoMapper.toResponseDto(savedTransfer));
