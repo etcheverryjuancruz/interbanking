@@ -58,9 +58,9 @@ public class TransferRepositoryAdapter implements TransferRepositoryPort {
     @Override
     public List<Company> findCompaniesWithTransfersLastMonth(LocalDateTime lastMonth) {
         return transferJpaRepository.findDistinctByTransferDateAfter(lastMonth).stream()
-                .map(TransferEntity::getCompany) // Obtener CompanyEntity
+                .map(TransferEntity::getCompany)
                 .distinct()
-                .map(companyEntityMapper::toDomain) // Convertir a Company
+                .map(companyEntityMapper::toDomain)
                 .collect(Collectors.toList());
     }
 

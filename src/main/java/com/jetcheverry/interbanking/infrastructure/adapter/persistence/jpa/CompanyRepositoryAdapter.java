@@ -17,7 +17,6 @@ public class CompanyRepositoryAdapter  implements CompanyRepositoryPort {
     private final CompanyJpaRepository companyJpaRepository;
     private final CompanyEntityMapper companyEntityMapper;
 
-
     public CompanyRepositoryAdapter(CompanyJpaRepository companyJpaRepository, CompanyEntityMapper companyEntityMapper) {
         this.companyJpaRepository = companyJpaRepository;
         this.companyEntityMapper = companyEntityMapper;
@@ -35,5 +34,10 @@ public class CompanyRepositoryAdapter  implements CompanyRepositoryPort {
         CompanyEntity entity = companyEntityMapper.toEntity(company);
         CompanyEntity savedEntity = companyJpaRepository.save(entity);
         return companyEntityMapper.toDomain(savedEntity);
+    }
+
+    @Override
+    public boolean existsByTaxId(String taxId) {
+        return companyJpaRepository.existsByTaxId(taxId);
     }
 }

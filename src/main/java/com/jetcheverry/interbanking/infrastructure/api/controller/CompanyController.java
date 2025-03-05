@@ -15,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +35,8 @@ public class CompanyController {
     private final TransferServicePort transferService;
     private final CompanyDtoMapper companyDtoMapper;
     private final Map<CompanyFilterType, Supplier<List<Company>>> filterHandlers;
+
+    private static final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
 
     public CompanyController(CompanyServicePort companyServicePort, TransferServicePort transferService, CompanyDtoMapper companyDtoMapper) {
@@ -59,6 +63,7 @@ public class CompanyController {
     )
     @PostMapping
     public ResponseEntity<CompanyResponseDto> registerCompany(@Valid @RequestBody CompanyRequestDto companyRequestDto) {
+        logger.info("Registrar una nueva empresa:  {} con Tax ID: {}", companyRequestDto.getBusinessName(), companyRequestDto.getTaxId());
         var savedCompany = companyService.registerCompany(companyDtoMapper.toDomain(companyRequestDto));
         return ResponseEntity.status(201).body(companyDtoMapper.toResponseDto(savedCompany));
     }
@@ -81,6 +86,7 @@ public class CompanyController {
     public ResponseEntity<List<CompanyResponseDto>> getCompanies(
             @Parameter(description = "Tipo de filtro para obtener empresas", example = "JOINED_LAST_MONTH")
             @RequestParam("filter") @NotNull(message = "El filtro es obligatorio") CompanyFilterType filterType) {
+        logger.info("Obteniendo empresas filtradas por : {}", filterType.name());
 
         List<Company> companies = filterHandlers.getOrDefault(filterType, Collections::emptyList).get();
         List<CompanyResponseDto> response = companies.stream()
